@@ -21,7 +21,7 @@ if(array_key_exists("jduzy",$_REQUEST)) $nd = $_REQUEST["jduzy"];
 else $nd = ""; // Nauczyciel języka dużego
 if(array_key_exists("jmaly",$_REQUEST)) $nm = $_REQUEST["jmaly"];
 else $nm = ""; // Nauczyciel języka małego
-if(array_key_exists("date",$_REQUEST)) $dt = $_REQUEST["date"];
+if(array_key_exists("date",$_REQUEST)) $dt = date("Y-m-d", strtotime($_REQUEST["date"]));
 else $dt = "";
 if(array_key_exists("nodate",$_REQUEST)) $nodate = true;
 else $nodate=false;
@@ -37,20 +37,17 @@ $yr = substr($cl,0,1);
 $cd = "d" . $yr; //na podstawie
 $cm = "m" . $yr; //wprowadzonych danych
 $adres_ogolny = "http://www.v-lo.krakow.pl/dla-uczniow/zastepstwa?subsDate=";
-if($dt == "" or $dt == "YYYY-MM-DD") //ustalanie daty jutrzejszej jeżeli nie podana
+if($dt == "" or $dt == "1970-01-01") //ustalanie daty jutrzejszej jeżeli nie podana
 {	
-	if(date("N") > 5) $dt = date("Y-m-d", strtotime('next Monday'));
+	if(date("N") > 5) $dt = date("Y-m-d", strtotime('next weekday'));
 	else
 	{
 	if(date("G") >= $daychange)
 	{
-		if(date("N") >= 5) $dt = date("Y-m-d", strtotime('next Monday'));
-		else $dt = date("Y-m-d", strtotime('tomorrow'));
+		$dt = date("Y-m-d", strtotime('next weekday'));
 	}
 	else $dt = date("Y-m-d");
-	}
-	
-	
+	}	
 }
 $adres = $adres_ogolny . $dt; //ostateczny adres
 switch (date("N",strtotime($dt))) {
