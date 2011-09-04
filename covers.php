@@ -14,7 +14,7 @@ $covers_not_found2 = " na stronie VLO! Misie Panda płaczą!";
 $no_covers1 = "Brak zastępstw w ";
 $no_covers2 = ", wszystkie lekcje normalnie ;)";
 $daychange = 11; //Godzina zmiany domyślnych zastępstw na jutrzejsze
-$cld = "2D";               //  Klasa domyślna
+$cld = "3D";               //  Klasa domyślna
 if(array_key_exists("class",$_REQUEST)) $cl = strtoupper($_REQUEST["class"]);
 else $cl = ""; // Klasa (1A,2B,3D,...)
 if(array_key_exists("jduzy",$_REQUEST)) $nd = $_REQUEST["jduzy"];
@@ -27,7 +27,7 @@ if(array_key_exists("nodate",$_REQUEST)) $nodate = true;
 else $nodate=false;
 if(array_key_exists("me",$_REQUEST))
 {
-	$cl="2D";
+	$cl="3D";
 	$nd="Barbara Skiendzielewska - Dec";
 	$nm="Maria Skrzypek";
 }
