@@ -1,6 +1,6 @@
 <?php
 //            COPYRIGHT BY
-//                   MICHAŁ SOIDA, 2010
+//                   MICHAŁ SOIDA, 2011
 //     Creative Commons Uznanie autorstwa -
 //     - Użycie niekomercyjne - Na tych samych warunkach 3.0 Polska
 // http://creativecommons.org/licenses/by-nc-sa/3.0/pl/legalcode
@@ -135,8 +135,8 @@ $mojxml = "<?xml version=\"1.0\"?>
 EOF;
 //----------POPRAWA RÓŻNYCH BŁĘDÓW 2. XML'a------------
 $covers = simplexml_load_string($mojxml);
-if (!$covers) {echo $covers_not_found1 . strtolower($dow_w) . $covers_not_found2;}
-else { //dalszy skrypt wykonywany gdy istnieją zastępstwa (global-else)
+if (!$covers) {die($covers_not_found1 . strtolower($dow_w) . $covers_not_found2);}
+//jezeli nie ma zadnych zastepstw przerywamy skrypt
 $t = 0;
 foreach ($covers->teacher as $teacher) {
 	$c = 0;
@@ -212,5 +212,4 @@ for($i=1;$i<=8;$i++) {
 }
 if ( $zastepstwa != $wzortabeli ) echo $zastepstwa;
 else echo $no_covers1 . $dow_w . $no_covers2;
-} //koniec global-else
 ?>

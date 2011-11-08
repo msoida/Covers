@@ -1,12 +1,11 @@
 <?php
 //            COPYRIGHT BY
-//                   MICHAŁ SOIDA, 2010
+//                   MICHAŁ SOIDA, 2011
 //     Creative Commons Uznanie autorstwa -
 //     - Użycie niekomercyjne - Na tych samych warunkach 3.0 Polska
 // http://creativecommons.org/licenses/by-nc-sa/3.0/pl/legalcode
 //
-ini_set( 'display_errors', 'Off' ); 
-error_reporting(0);
+//                 FRAGMENT covers.php
 //-----------------------------------------------------
 echo "<form action=\"\" method=\"get\" name=\"covers\">\n
 <input name=\"class\" type=\"hidden\" value=\"{$cl}\" />
