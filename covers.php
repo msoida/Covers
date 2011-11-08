@@ -9,10 +9,8 @@ ini_set( 'display_errors', 'Off' );
 error_reporting(0);
 //-----------------------ZMIENNE-----------------------
 date_default_timezone_set('Europe/Warsaw');
-$covers_not_found1 = "BŁĄD - Brak zastępstw na ";
-$covers_not_found2 = " na stronie VLO! Misie Panda płaczą!";
-$no_covers1 = "Brak zastępstw w ";
-$no_covers2 = ", wszystkie lekcje normalnie ;)";
+$covers_not_found = "BŁĄD - Brak zastępstw na DZIEN na stronie VLO! Misie Panda płaczą!";
+$no_covers = "Brak zastępstw w DZIEN, wszystkie lekcje normalnie ;)";
 $daychange = 11; //Godzina zmiany domyślnych zastępstw na jutrzejsze
 $cld = "3D";               //  Klasa domyślna
 if(array_key_exists("class",$_REQUEST)) $cl = strtoupper($_REQUEST["class"]);
@@ -79,6 +77,8 @@ switch (date("N",strtotime($dt))) {
         $dow = "Niedziela";
         $dow_w = "niedzielę";
         break;}
+$covers_not_found = str_replace("DZIEN", $dow_w, $covers_not_found);
+$no_covers = str_replace("DZIEN", $dow_w, $no_covers); // Poprawka dnia tygodnia w komunikatach
 if ($nodate != true) include('date.php');
 //-----------------------------------------------------
 $strona = file_get_contents($adres);          //ściągamy zastępstwa
@@ -86,9 +86,6 @@ $strona = stristr($strona, 'Pokaż zastępstwa na jutro');         //i wstępnie
 $strona = stristr($strona, 'banners', true);
 $strona = substr($strona, 54);
 $strona = substr($strona, 0, -85); //przygotowania 1. XML'a (tego wprost z tabeli)
-
-
-
 $strona = str_ireplace("<table>", "" , $strona);
 $strona = str_ireplace("</table>", "" , $strona);
 $strona = str_ireplace("				<h3 class = \"table_title\">", "	<tr>
@@ -100,10 +97,6 @@ $strona = "<?xml version=\"1.0\"?>
 <table>
 " . $strona . "
 </table>";
-
-
-
-
 //-----------------------------------------------------
 $table = simplexml_load_string($strona); //ładujemy 1. XML'a
 $mojxml = "";
@@ -135,7 +128,7 @@ $mojxml = "<?xml version=\"1.0\"?>
 EOF;
 //----------POPRAWA RÓŻNYCH BŁĘDÓW 2. XML'a------------
 $covers = simplexml_load_string($mojxml);
-if (!$covers) {die($covers_not_found1 . strtolower($dow_w) . $covers_not_found2);}
+if (!$covers) {die($covers_not_found);}
 //jezeli nie ma zadnych zastepstw przerywamy skrypt
 $t = 0;
 foreach ($covers->teacher as $teacher) {
@@ -211,5 +204,5 @@ for($i=1;$i<=8;$i++) {
 	$wzortabeli .= " {$i} - brak zastępstwa<br>\n";
 }
 if ( $zastepstwa != $wzortabeli ) echo $zastepstwa;
-else echo $no_covers1 . $dow_w . $no_covers2;
+else echo $no_covers;
 ?>
