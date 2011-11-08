@@ -29,6 +29,15 @@ if(array_key_exists("me",$_REQUEST))
 	$nd="Barbara Skiendzielewska - Dec";
 	$nm="Maria Skrzypek";
 }
+if(array_key_exists("rss",$_REQUEST))
+{
+	$cl="3D";
+	$nd="Barbara Skiendzielewska - Dec";
+	$nm="Maria Skrzypek";
+	$covers_not_found = "NOCOVERS";
+	$no_covers = "NOCOVERS";
+	$nodate = true;
+}
 //-----------------------SKRYPT------------------------
 if($cl == "") { $cl=$cld; } //wybieranie domyślnej klasy
 $yr = substr($cl,0,1);
