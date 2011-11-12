@@ -31,6 +31,7 @@ if(array_key_exists("me",$_REQUEST))
 }
 if(array_key_exists("rss",$_REQUEST))
 {
+	$rss = true;
 	$cl="3D";
 	$nd="Barbara Skiendzielewska - Dec";
 	$nm="Maria Skrzypek";
@@ -38,6 +39,7 @@ if(array_key_exists("rss",$_REQUEST))
 	$no_covers = "NOCOVERS";
 	$nodate = true;
 }
+else { $rss = false; }
 //-----------------------SKRYPT------------------------
 if($cl == "") { $cl=$cld; } //wybieranie domyślnej klasy
 $yr = substr($cl,0,1);
@@ -196,7 +198,11 @@ foreach ($covers->teacher as $teacher) {
 	}
 }
 //-----------------WYPISYWANIE TABELI------------------
-$zastepstwa = $dow . ":<br>\n";
+$zastepstwa = "";
+if(!$rss)
+{
+	$zastepstwa = $dow . ":<br>\n";
+}
 for($i=1;$i<=8;$i++) {
 	if($tabela[$i]['cover'] != "")
 	{
@@ -204,13 +210,15 @@ for($i=1;$i<=8;$i++) {
 	}
 	else
 	{
-		$zastepstwa .= " {$i} - brak zastępstwa<br>\n";
+		if(!$rss) { $zastepstwa .= " {$i} - brak zastępstwa<br>\n"; }
 	}
 }
 //-----------------UPRASZCZANIE TABELI-----------------
-$wzortabeli = $dow . ":<br>\n";
+$wzortabeli = "";
+if(!$rss) { $wzortabeli = $dow . ":<br>\n";
 for($i=1;$i<=8;$i++) {
 	$wzortabeli .= " {$i} - brak zastępstwa<br>\n";
+}
 }
 if ( $zastepstwa != $wzortabeli ) echo $zastepstwa;
 else echo $no_covers;
